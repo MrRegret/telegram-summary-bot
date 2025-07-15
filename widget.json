@@ -1,0 +1,69 @@
+{
+  "name": "pexels-video-wallpaper",
+  "version": "1.0.0",
+  "displayName": {
+    "default": "Pexels Video Wallpaper",
+    "zh_CN": "Pexels 视频壁纸",
+    "en_US": "Pexels Video Wallpaper"
+  },
+  "description": {
+    "default": "A widget that displays random high-quality videos from Pexels with search functionality",
+    "zh_CN": "一个显示Pexels优质随机视频并支持搜索功能的挂件",
+    "en_US": "A widget that displays random high-quality videos from Pexels with search functionality"
+  },
+  "author": "Forward Widget Developer",
+  "url": "https://github.com/your-repo/pexels-video-wallpaper",
+  "minAppVersion": "1.0.0",
+  "category": "media",
+  "keywords": [
+    "pexels",
+    "video",
+    "wallpaper",
+    "random",
+    "search",
+    "media"
+  ],
+  "icon": "icon.png",
+  "preview": "preview.png",
+  "readme": {
+    "default": "README.md",
+    "zh_CN": "README_zh_CN.md"
+  },
+  "settings": {
+    "apiKey": {
+      "type": "string",
+      "title": "Pexels API Key",
+      "description": "Your Pexels API key for accessing videos",
+      "required": true,
+      "placeholder": "Enter your Pexels API key here"
+    },
+    "autoRefresh": {
+      "type": "boolean",
+      "title": "Auto Refresh",
+      "description": "Automatically refresh videos every few minutes",
+      "default": true
+    },
+    "refreshInterval": {
+      "type": "number",
+      "title": "Refresh Interval (minutes)",
+      "description": "Minutes between auto refresh",
+      "default": 5,
+      "min": 1,
+      "max": 60
+    },
+    "videoQuality": {
+      "type": "select",
+      "title": "Video Quality",
+      "description": "Preferred video quality",
+      "default": "hd",
+      "options": [
+        {"value": "sd", "label": "Standard Definition"},
+        {"value": "hd", "label": "High Definition"},
+        {"value": "uhd", "label": "Ultra High Definition"}
+      ]
+    }
+  },
+  "permissions": [
+    "network"
+  ]
+}

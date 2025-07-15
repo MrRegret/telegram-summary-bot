@@ -1,0 +1,23 @@
+<svg width="1024" height="768" viewBox="0 0 1024 768" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="1024" height="768" fill="url(#bgGrad)"/>
+  <rect x="50" y="50" width="924" height="668" rx="16" fill="rgba(255,255,255,0.95)"/>
+  <rect x="70" y="70" width="884" height="60" rx="8" fill="url(#grad)"/>
+  <circle cx="100" cy="100" r="12" fill="white"/>
+  <polygon points="95,92 95,108 107,100" fill="#6b73ff"/>
+  <text x="130" y="105" fill="white" font-family="Arial, sans-serif" font-size="16" font-weight="bold">Pexels Video Wallpaper</text>
+  <rect x="70" y="150" width="884" height="40" rx="20" fill="#f5f5f5"/>
+  <rect x="90" y="160" width="300" height="20" rx="10" fill="white"/>
+  <text x="100" y="172" fill="#999" font-family="Arial, sans-serif" font-size="12">搜索视频主题...</text>
+  <rect x="70" y="210" width="884" height="480" rx="12" fill="#000"/>
+  <circle cx="512" cy="450" r="60" fill="rgba(255,255,255,0.8)"/>
+  <polygon points="490,420 490,480 540,450" fill="#333"/>
+  <text x="512" y="540" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="18">High Quality Video from Pexels</text>
+  <rect x="70" y="710" width="884" height="8" rx="4" fill="#e0e0e0"/>
+  <rect x="70" y="710" width="200" height="8" rx="4" fill="#6b73ff"/>
+</svg>

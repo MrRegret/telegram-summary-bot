@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pexels Video Wallpaper Widget</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="widget-container">
+        <!-- Header with controls -->
+        <div class="widget-header">
+            <div class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 4h16v16H4V4z" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <path d="M8 8l8 4-8 4V8z" fill="currentColor"/>
+                </svg>
+                <span>Pexels Videos</span>
+            </div>
+            <div class="controls">
+                <button id="refreshBtn" class="control-btn" title="随机获取新视频">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 4v6h6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <button id="settingsBtn" class="control-btn" title="设置">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="搜索视频主题..." maxlength="100">
+                <button id="searchBtn" class="search-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
+                        <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+            <button id="clearSearchBtn" class="clear-btn">清空</button>
+        </div>
+
+        <!-- API Key Input (hidden by default) -->
+        <div id="apiKeyContainer" class="api-key-container" style="display: none;">
+            <div class="api-input-group">
+                <label for="apiKeyInput">Pexels API Key:</label>
+                <input type="password" id="apiKeyInput" placeholder="请输入您的Pexels API密钥">
+                <button id="saveApiKeyBtn" class="save-btn">保存</button>
+            </div>
+            <div class="api-help">
+                <p>
+                    <a href="https://www.pexels.com/api/" target="_blank">获取免费的Pexels API密钥</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- Video Display Area -->
+        <div class="video-container">
+            <div id="loadingIndicator" class="loading">
+                <div class="spinner"></div>
+                <p>正在加载精彩视频...</p>
+            </div>
+            
+            <div id="videoPlayer" class="video-player" style="display: none;">
+                <video id="mainVideo" loop muted autoplay playsinline>
+                    <source src="" type="video/mp4">
+                    您的浏览器不支持视频播放。
+                </video>
+                
+                <div class="video-overlay">
+                    <div class="video-info">
+                        <h3 id="videoTitle">视频标题</h3>
+                        <p id="videoAuthor">作者</p>
+                        <div class="video-tags" id="videoTags"></div>
+                    </div>
+                    
+                    <div class="video-controls">
+                        <button id="playPauseBtn" class="play-pause-btn">
+                            <svg class="play-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <polygon points="5,3 19,12 5,21" fill="currentColor"/>
+                            </svg>
+                            <svg class="pause-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                                <rect x="6" y="4" width="4" height="16" fill="currentColor"/>
+                                <rect x="14" y="4" width="4" height="16" fill="currentColor"/>
+                            </svg>
+                        </button>
+                        
+                        <button id="muteBtn" class="mute-btn">
+                            <svg class="unmute-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <polygon points="11,5 6,9 2,9 2,15 6,15 11,19" fill="currentColor"/>
+                                <path d="M19.07 4.93a10 10 0 0 1 0 14.14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M15.54 8.46a5 5 0 0 1 0 7.07" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <svg class="mute-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                                <polygon points="11,5 6,9 2,9 2,15 6,15 11,19" fill="currentColor"/>
+                                <line x1="23" y1="9" x2="17" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                <line x1="17" y1="9" x2="23" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                        
+                        <button id="fullscreenBtn" class="fullscreen-btn">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        
+                        <a id="downloadBtn" class="download-btn" target="_blank">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <polyline points="7,10 12,15 17,10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <line x1="12" y1="15" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="errorMessage" class="error-message" style="display: none;">
+                <div class="error-icon">⚠️</div>
+                <div class="error-text">
+                    <h3>加载失败</h3>
+                    <p id="errorDescription">请检查网络连接或API密钥设置</p>
+                    <button id="retryBtn" class="retry-btn">重试</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="status-info">
+                <span id="statusText">就绪</span>
+            </div>
+            <div class="widget-info">
+                <span>Powered by Pexels API</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>设置</h2>
+                <button id="closeSettingsBtn" class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="setting-group">
+                    <label for="apiKeySetting">API 密钥:</label>
+                    <input type="password" id="apiKeySetting" placeholder="输入Pexels API密钥">
+                </div>
+                
+                <div class="setting-group">
+                    <label for="autoRefreshSetting">自动刷新:</label>
+                    <input type="checkbox" id="autoRefreshSetting">
+                </div>
+                
+                <div class="setting-group">
+                    <label for="refreshIntervalSetting">刷新间隔 (分钟):</label>
+                    <input type="number" id="refreshIntervalSetting" min="1" max="60" value="5">
+                </div>
+                
+                <div class="setting-group">
+                    <label for="videoQualitySetting">视频质量:</label>
+                    <select id="videoQualitySetting">
+                        <option value="sd">标清</option>
+                        <option value="hd" selected>高清</option>
+                        <option value="uhd">超高清</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="saveSettingsBtn" class="save-btn">保存设置</button>
+                <button id="cancelSettingsBtn" class="cancel-btn">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
